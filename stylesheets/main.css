@@ -1,0 +1,116 @@
+/* cyrillic */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    src: url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fABc4EsA.woff2) format('woff2');
+    unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+body {
+    margin: 0;
+    background-color: #171717;
+}
+
+header {
+	font-family: 'Roboto';
+    position : relative;
+    margin : 10px 10px 10px 10px;
+    background: rgb(122,14,62);
+    background: linear-gradient(90deg, rgb(75, 13, 40) 0%, rgba(32,32,32,1) 100%);
+    border-radius: 15px;
+}
+
+.lien {
+    margin: 20px 20px;
+    z-index: 1;
+}
+
+.lien:not(.logo-link){
+    border-color: #ffffff;
+    padding: 0.6em 2.3em;
+    cursor: pointer;
+    font-size: 20px;
+    color: #ffffff;
+    background-image: linear-gradient(45deg, transparent 50%, #000000 50%);
+    background-position: 25%;
+    background-size: 400%;
+    -webkit-transition: background 400ms ease-in-out, color 400ms ease-in-out;
+    transition: background 400ms ease-in-out, color 400ms ease-in-out;
+    border-radius: 10px;
+}
+  
+.lien:hover:not(.logo-link) {
+    color: #ffffff;
+    background-position: 100%;
+}
+
+.main-body{
+    font-family: 'Roboto';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+}
+
+.menu-links{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.text-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.text-container p {
+    font-size: 25px;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+.form input {
+    margin: 15px auto; 
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+.form button{
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    padding: 15px;
+    margin: 15px auto;
+    cursor: pointer;
+    color: #ffffff;
+    transition: .4s ease-in;
+    font-size: 1em;
+    background-color: rgb(75, 13, 40);
+
+}
+
+.form button:hover{
+    background-color: rgb(132,21,69);
+}
