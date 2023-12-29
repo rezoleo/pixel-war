@@ -1,12 +1,12 @@
 <?php
-// Vérifier le mot de passe ici
-$passwordFromDatabase = trim(file_get_contents("password.txt")); // Récupérer le mot de passe depuis le fichier "password.txt" et supprimer les espaces indésirables
+
+include('./private/config.php');
 
 if (isset($_POST['passwd'])) {
     $enteredPassword = $_POST['passwd'];
 
     // Vérifier le mot de passe (vous devez utiliser une méthode de hachage sécurisée ici)
-    if (password_verify($enteredPassword, $passwordFromDatabase)) {
+    if (password_verify($enteredPassword, $hashedPassword)) {
         // Mot de passe correct, rediriger vers admin_control.html
         header("Location: admin_control.html");
         exit();
