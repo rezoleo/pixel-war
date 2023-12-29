@@ -5,13 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login Pixel War Rezoleo</title>
     <link rel="stylesheet" href="stylesheets/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        // Utiliser jQuery pour effectuer une requête Ajax
+        $(document).ready(function () {
+            // Vérifier si le paramètre 'error' est présent dans l'URL
+            var isError = window.location.search.includes('error=true');
+
+            // Afficher un message d'erreur si nécessaire
+            if (isError) {
+                $('#error-container').html('<p style="color: red;">Erreur de mot de passe</p>');
+            }
+        });
+    </script>
 </head>
 <body>
     <header>
         <nav class="menu">
             <div class="menu-links">
                 <a class="lien logo-link" id="case_logo">
-                    <img src="images/rezoleo_logo.png" alt="logo" id="logo" style="width : 80px">
+                    <img src="images/rezoleo_logo.png" alt="logo" id="logo" style="width: 80px">
                 </a>
                 <a class="lien" href="index.html" id="case_1">
                     <p>Accueil</p>
@@ -25,9 +38,9 @@
             </div>
         </nav>
     </header>
-    <div>
-        <form class="form id="loginForm" action="admin_login.php" method="post">
-            <?php include 'error.php'; ?>
+    <div class="error-container" id="error-container"></div>
+    <div class="form-container">
+        <form class="form" id="loginForm" action="admin_login.php" method="post">
             <input type="password" name="passwd" placeholder="Password">
             <button type="submit">Login</button>
         </form>

@@ -85,8 +85,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 80vh;
+    justify-content: top;
 }
 
 .form input {
@@ -112,4 +111,22 @@ header {
 
 .form button:hover{
     background-color: rgb(132,21,69);
+}
+
+.error-container {
+    font-family : 'Roboto';
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px; /* Add margin-bottom to create space between error message and password input */
+    justify-content: flex-end;
+    align-items: center;
+    height: 30vh;
+    flex-direction: column;
+}
+
+.error-container p {
+    font-size: 30px;
+    color: red;
+    margin: 0;
+    padding: 0;
 }
