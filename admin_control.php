@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Vérifier si l'utilisateur est authentifié
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
+    header("Location: admin_login.html");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
