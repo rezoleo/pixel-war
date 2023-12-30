@@ -45,15 +45,19 @@ header {
     background-position: 100%;
 }
 
-.main-body{
+.main-body {
     font-family: 'Roboto';
+    min-width: 40%;
+    max-width: 70%;
+    margin: 0 auto; /* Center the content */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0;
-    padding: 0;
+    padding: 20px; /* Add some padding for better spacing */
     font-size: 20px;
+    color: #f0f0f0;
+    text-align: center;
 }
 
 .menu-links{
