@@ -64,6 +64,7 @@ header {
     display: flex;
     align-items: center;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .text-container {
@@ -133,4 +134,39 @@ header {
     color: red;
     margin: 0;
     padding: 0;
+}
+.pixel_war_body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100px; 
+    height: 100px;
+    transform-origin: top center;
+    margin: 20px auto;
+}
+
+#pixel_war {
+    width: 100%; 
+    height: 100%;
+    z-index: -1;
+}
+
+.bottom_bar{
+    position: absolute;
+    bottom: 0;
+}
+
+#scaleButton {
+    padding: 10px;
+    margin: 0 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #555;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#scaleButton:hover {
+    background-color: #777;
 }
