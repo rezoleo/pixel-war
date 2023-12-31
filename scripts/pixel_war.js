@@ -104,3 +104,34 @@ document.addEventListener('touchend', function (e) {
     finishTouchX += e.changedTouches[0].clientX - startTouchX;
     finishTouchY += e.changedTouches[0].clientY - startTouchY;
 });
+
+// Function to create color buttons
+function createColorButtons() {
+    var colorContainer = document.getElementById('colorButtons');
+
+    // Array of color values
+    var colors = [
+        "#FFFFFF", "#E4E4E4", "#888888", "#222222",
+        "#FFA7D1", "#E50000", "#E59500", "#A06A42",
+        "#E5D900", "#94E044", "#02BE01", "#00D3DD",
+        "#0083C7", "#0000EA", "#CD6EEA", "#820080"
+    ];
+
+    // Create buttons for each color
+    colors.forEach(function (color) {
+        var colorButton = document.createElement('button');
+        colorButton.style.backgroundColor = color;
+        colorButton.style.width = '40px';
+        colorButton.style.height = '40px';
+        colorButton.style.margin = '3px';
+        colorButton.addEventListener('click', function () {
+            // Handle color selection
+            ctx.fillStyle = color;
+            ctx.fillRect(0, 0, 100, 100);
+        });
+        colorContainer.appendChild(colorButton);
+    });
+}
+
+// Call the function to create color buttons
+createColorButtons();
