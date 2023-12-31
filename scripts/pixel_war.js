@@ -1,3 +1,6 @@
+const baseScale = 5;
+const upScale = 25;
+
 var canvas = document.getElementById("pixel_war");
 const ctx = canvas.getContext("2d");
 
@@ -8,16 +11,16 @@ ctx.fillRect(0, 0, 100, 100);
 // Code for the button scaling the canvas
 
 var isScaled = false;
-canvas.style.transform = 'scale(4, 4)'
+canvas.style.transform = 'scale(' + baseScale+ ',' + baseScale + ')';
 canvas.style.transformOrigin = 'top center';
 
 document.getElementById('scaleButton').addEventListener('click', function() {
 
     // Toggle between scales
     if (isScaled) {
-        canvas.style.transform = 'scale(4, 4)';
+        canvas.style.transform = 'scale(' + baseScale+ ',' + baseScale + ')';
     } else {
-        canvas.style.transform = 'scale(20, 20)';
+        canvas.style.transform = 'scale(' + upScale + ',' + upScale + ')';
     }
 
     // Update the scale state
@@ -60,10 +63,10 @@ document.addEventListener('mousemove', function (e) {
 
         // Update the canvas position
         if (isScaled){
-            canvas.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(20, 20)';
+            canvas.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(' + upScale + ',' + upScale + ')';
         } 
         else {
-            canvas.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(4, 4)';
+            canvas.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(' + baseScale + ',' + baseScale + ')';
         }
     }
 
@@ -127,7 +130,6 @@ function createColorButtons() {
         colorButton.addEventListener('click', function () {
             // Handle color selection
             ctx.fillStyle = color;
-            ctx.fillRect(0, 0, 100, 100);
         });
         colorContainer.appendChild(colorButton);
     });
@@ -135,3 +137,63 @@ function createColorButtons() {
 
 // Call the function to create color buttons
 createColorButtons();
+
+/*
+// Event listener for canvas clicks
+canvas.addEventListener('click', function (e) {
+    // Calculate the pixel coordinates based on the click position
+    var x = Math.floor((e.clientX - canvas.offsetLeft) / (canvas.width / 100));
+    var y = Math.floor((e.clientY - canvas.offsetTop) / (canvas.height / 100));
+
+    // Fill the selected pixel with the current color
+    ctx.fillRect(x, y, 1, 1);
+});*/
+
+// Variables to track selected pixel
+var selectedPixelX = -1;
+var selectedPixelY = -1;
+
+// Function to draw a border around the selected pixel
+function drawSelectedPixelBorder() {
+    if (selectedPixelX !== -1 && selectedPixelY !== -1) {
+        ctx.strokeStyle = "red";
+        ctx.strokeRect(selectedPixelX, selectedPixelY, 1, 1);
+    }
+}
+
+// Event listener for canvas clicks
+canvas.addEventListener('click', function (e) {
+    // Calculate the pixel coordinates based on the click position
+    var rect = canvas.getBoundingClientRect();
+
+    if (isScaled){
+        var x = Math.floor((e.clientX - rect.left) / upScale);
+        var y = Math.floor((e.clientY - rect.top) / upScale);
+    }
+    else {
+        var x = Math.floor((e.clientX - rect.left) / baseScale);
+        var y = Math.floor((e.clientY - rect.top) / baseScale);
+    }
+
+    console.log(x, y);
+
+    // Update the selected pixel coordinates
+    selectedPixelX = x;
+    selectedPixelY = y;
+
+    // Redraw the canvas with the updated border
+    redrawCanvas();
+});
+
+// Function to redraw the canvas
+function redrawCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(0, 0, 100, 100);
+
+    // Draw the border around the selected pixel
+    drawSelectedPixelBorder();
+}
+
+// Initial draw of the canvas
+redrawCanvas();
