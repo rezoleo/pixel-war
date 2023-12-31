@@ -19,6 +19,7 @@ header {
     background: rgb(122,14,62);
     background: linear-gradient(90deg, rgb(75, 13, 40) 0%, rgba(32,32,32,1) 100%);
     border-radius: 15px;
+    z-index: 2;
 }
 
 .lien {
@@ -141,8 +142,8 @@ header {
     align-items: flex-start;
     width: 100px; 
     height: 100px;
-    transform-origin: top center;
     margin: 20px auto;
+    z-index: -1;
 }
 
 #pixel_war {
@@ -152,8 +153,9 @@ header {
 }
 
 .bottom_bar{
-    position: absolute;
+    position: fixed;
     bottom: 0;
+    width: 100%;
 }
 
 #scaleButton {
