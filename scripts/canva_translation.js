@@ -2,14 +2,13 @@ const baseScale = 5;
 const upScale = 25;
 
 var canvas = document.getElementById("pixel_war");
-const ctx = canvas.getContext("2d");
+const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
-ctx.fillStyle = "green";
+ctx.fillStyle = "white";
 ctx.fillRect(0, 0, 100, 100);
 
 
 // Code for the button scaling the canvas
-
 var isScaled = false;
 canvas.style.transform = 'scale(' + baseScale+ ',' + baseScale + ')';
 canvas.style.transformOrigin = 'top center';
@@ -107,93 +106,3 @@ document.addEventListener('touchend', function (e) {
     finishTouchX += e.changedTouches[0].clientX - startTouchX;
     finishTouchY += e.changedTouches[0].clientY - startTouchY;
 });
-
-// Function to create color buttons
-function createColorButtons() {
-    var colorContainer = document.getElementById('colorButtons');
-
-    // Array of color values
-    var colors = [
-        "#FFFFFF", "#E4E4E4", "#888888", "#222222",
-        "#FFA7D1", "#E50000", "#E59500", "#A06A42",
-        "#E5D900", "#94E044", "#02BE01", "#00D3DD",
-        "#0083C7", "#0000EA", "#CD6EEA", "#820080"
-    ];
-
-    // Create buttons for each color
-    colors.forEach(function (color) {
-        var colorButton = document.createElement('button');
-        colorButton.style.backgroundColor = color;
-        colorButton.style.width = '40px';
-        colorButton.style.height = '40px';
-        colorButton.style.margin = '3px';
-        colorButton.addEventListener('click', function () {
-            // Handle color selection
-            ctx.fillStyle = color;
-        });
-        colorContainer.appendChild(colorButton);
-    });
-}
-
-// Call the function to create color buttons
-createColorButtons();
-
-/*
-// Event listener for canvas clicks
-canvas.addEventListener('click', function (e) {
-    // Calculate the pixel coordinates based on the click position
-    var x = Math.floor((e.clientX - canvas.offsetLeft) / (canvas.width / 100));
-    var y = Math.floor((e.clientY - canvas.offsetTop) / (canvas.height / 100));
-
-    // Fill the selected pixel with the current color
-    ctx.fillRect(x, y, 1, 1);
-});*/
-
-// Variables to track selected pixel
-var selectedPixelX = -1;
-var selectedPixelY = -1;
-
-// Function to draw a border around the selected pixel
-function drawSelectedPixelBorder() {
-    if (selectedPixelX !== -1 && selectedPixelY !== -1) {
-        ctx.strokeStyle = "red";
-        ctx.strokeRect(selectedPixelX, selectedPixelY, 1, 1);
-    }
-}
-
-// Event listener for canvas clicks
-canvas.addEventListener('click', function (e) {
-    // Calculate the pixel coordinates based on the click position
-    var rect = canvas.getBoundingClientRect();
-
-    if (isScaled){
-        var x = Math.floor((e.clientX - rect.left) / upScale);
-        var y = Math.floor((e.clientY - rect.top) / upScale);
-    }
-    else {
-        var x = Math.floor((e.clientX - rect.left) / baseScale);
-        var y = Math.floor((e.clientY - rect.top) / baseScale);
-    }
-
-    console.log(x, y);
-
-    // Update the selected pixel coordinates
-    selectedPixelX = x;
-    selectedPixelY = y;
-
-    // Redraw the canvas with the updated border
-    redrawCanvas();
-});
-
-// Function to redraw the canvas
-function redrawCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, 100, 100);
-
-    // Draw the border around the selected pixel
-    drawSelectedPixelBorder();
-}
-
-// Initial draw of the canvas
-redrawCanvas();
