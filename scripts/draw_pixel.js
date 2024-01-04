@@ -38,6 +38,8 @@ canvas.addEventListener('click', function (e) {
     }
 
     console.log(x, y);
+    console.log(ctx.fillStyle)
+    console.log(getSelectedColor());
 
     // Update the selected pixel coordinates
     selectedPixelX = x;
@@ -50,13 +52,12 @@ canvas.addEventListener('click', function (e) {
 // Function to update the color of the selected pixel
 function updatePixelColor(color) {
     // Check if a pixel is selected
-    if (selectedPixelX !== null && selectedPixelY !== null) {
+    if (selectedPixelX !== -1 && selectedPixelY !== -1) {
         // Set the color of the selected pixel
-        ctx.fillStyle = color;
         ctx.fillRect(selectedPixelX, selectedPixelY, 1, 1);
 
         // Clear the selected pixel coordinates after updating color
-        selectedPixelX = null;
-        selectedPixelY = null;
+        selectedPixelX = -1;
+        selectedPixelY = -1;
     }
 }

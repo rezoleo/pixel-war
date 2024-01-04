@@ -10,7 +10,7 @@ ctx.fillRect(0, 0, 100, 100);
 
 // Code for the button scaling the canvas
 var isScaled = false;
-canvas.style.transform = 'scale(' + baseScale+ ',' + baseScale + ')';
+canvas.style.transform = 'scale(' + baseScale + ',' + baseScale + ')';
 canvas.style.transformOrigin = 'top center';
 
 document.getElementById('scaleButton').addEventListener('click', function() {

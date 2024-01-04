@@ -10,6 +10,8 @@
 body {
     margin: 0;
     background-color: #171717;
+    z-index: -3;
+    position: relative;
 }
 
 header {
@@ -144,6 +146,7 @@ header {
     height: 100px;
     margin: 20px auto;
     z-index: -2;
+    position: relative;
 }
 
 #pixel_war {
