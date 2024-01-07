@@ -1,4 +1,5 @@
-// Event listener for uploading color to selected pixel
+/*
+//Event listener for uploading color on backend txt file, to update later
 document.getElementById('uploadColorButton').addEventListener('click', function () {
     // Get the selected color from the canvas
     var selectedColor = getSelectedColor();
@@ -6,11 +7,20 @@ document.getElementById('uploadColorButton').addEventListener('click', function 
     // Update the color of the selected pixel
     updatePixelColor(selectedColor);
 });
+*/
 
 // Function to get the color of the selected pixel
 function getSelectedColor() {
-    var imageData = ctx.getImageData(selectedPixelX, selectedPixelY, 1, 1);
-    var pixelColor = '#' + ('000000' + rgbToHex(imageData.data[0], imageData.data[1], imageData.data[2])).slice(-6);
+    let pixelColor;
+    let imageData;
+
+    if ((x !== -1) && (y !== -1)) {
+        imageData = ctx.getImageData(x, y, 1, 1);
+        pixelColor = '#' + ('000000' + rgbToHex(imageData.data[0], imageData.data[1], imageData.data[2])).slice(-6);
+    }
+    else {
+        pixelColor = '#FFFFFF';
+    }
     return pixelColor;
 }
 
@@ -20,44 +30,48 @@ function rgbToHex(r, g, b) {
 }
 
 // Variables to track selected pixel
-var selectedPixelX = -1;
-var selectedPixelY = -1;
+let previousPixelX = -1;
+let previousPixelY = -1;
+let x = -1;
+let y = -1;
+let colorPreviousPixel = '#FFFFFF';
 
 // Event listener for canvas clicks
 canvas.addEventListener('click', function (e) {
     // Calculate the pixel coordinates based on the click position
-    var rect = canvas.getBoundingClientRect();
+    let rect = canvas.getBoundingClientRect();
 
     if (isScaled){
-        var x = Math.floor((e.clientX - rect.left) / upScale);
-        var y = Math.floor((e.clientY - rect.top) / upScale);
+        x = Math.floor((e.clientX - rect.left) / upScale);
+        y = Math.floor((e.clientY - rect.top) / upScale);
     }
     else {
-        var x = Math.floor((e.clientX - rect.left) / baseScale);
-        var y = Math.floor((e.clientY - rect.top) / baseScale);
+        x = Math.floor((e.clientX - rect.left) / baseScale);
+        y = Math.floor((e.clientY - rect.top) / baseScale);
     }
 
-    console.log(x, y);
-    console.log(ctx.fillStyle)
-    console.log(getSelectedColor());
-
-    // Update the selected pixel coordinates
-    selectedPixelX = x;
-    selectedPixelY = y;
-
-    // Redraw the canvas with the updated border
-    updatePixelColor(getSelectedColor());
+    //si on ne clique pas au même endroit
+    if (((x != previousPixelX) || (y != previousPixelY))){
+        colorPreviousPixel = getSelectedColor();
+        updatePixelColor(colorPreviousPixel);
+        previousPixelX = x;
+        previousPixelY = y;
+    }
 });
 
-// Function to update the color of the selected pixel
-function updatePixelColor(color) {
-    // Check if a pixel is selected
-    if (selectedPixelX !== -1 && selectedPixelY !== -1) {
-        // Set the color of the selected pixel
-        ctx.fillRect(selectedPixelX, selectedPixelY, 1, 1);
+// Function to update the color of the selected pixel in front
+function updatePixelColor(previousColor) {
+    let currentColor = ctx.fillStyle;
 
-        // Clear the selected pixel coordinates after updating color
-        selectedPixelX = -1;
-        selectedPixelY = -1;
+    //make the previous pixel the color it was before
+    ctx.fillStyle = previousColor;
+    if ((previousPixelX) !== -1 && (previousPixelY) !== -1) {
+        ctx.fillRect(previousPixelX, previousPixelY, 1, 1);
+    }
+
+    ctx.fillStyle = currentColor
+    //update the color of the current pixel
+    if ((x !== -1) && (y !== -1)) {
+        ctx.fillRect(x, y, 1, 1);
     }
 }

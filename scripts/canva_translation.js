@@ -7,7 +7,6 @@ const ctx = canvas.getContext("2d", { willReadFrequently: true });
 ctx.fillStyle = "white";
 ctx.fillRect(0, 0, 100, 100);
 
-
 // Code for the button scaling the canvas
 var isScaled = false;
 canvas.style.transform = 'scale(' + baseScale + ',' + baseScale + ')';
