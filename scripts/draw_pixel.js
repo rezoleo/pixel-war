@@ -50,6 +50,9 @@ canvas.addEventListener('click', function (e) {
         y = Math.floor((e.clientY - rect.top) / baseScale);
     }
 
+    let position = document.getElementById("position");
+    position.innerHTML = "" + x + "," + y;
+
     //si on ne clique pas au même endroit
     if (((x != previousPixelX) || (y != previousPixelY))){
         colorPreviousPixel = getSelectedColor();

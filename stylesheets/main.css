@@ -170,21 +170,23 @@ header {
 }
 
 #scaleButton {
-    padding: 10px;
-    margin: 0 10px;
-    font-size: 16px;
-    color: white;
-    background-color: #555;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    margin: 0px 10px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: .4s ease-in;
+    font-size: 16px;
+    background-color: rgb(75, 13, 40);
 }
 
 #scaleButton:hover {
-    background-color: #777;
+    background-color: rgb(132,21,69);
 }
 
 #colorButtons {
@@ -199,4 +201,44 @@ header {
 /* Style for the selected class */
 .colorButton.selected {
     border: 3px solid rgb(0, 255, 179);
+}
+
+.position-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 2;
+    background: rgb(77, 64, 70);
+    border-radius: 10px;
+    padding: 0.4em 0.65em;
+    text-align: center;
+}
+
+.position-div p {
+    font-family: "Roboto";
+    font-size: 17px;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+#uploadColorButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    margin: 0px 10px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: .4s ease-in;
+    font-size: 16px;
+    background-color: rgb(75, 13, 40);
+}
+
+#uploadColorButton:hover {
+    background-color: rgb(132,21,69);
 }
