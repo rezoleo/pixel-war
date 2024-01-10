@@ -35,6 +35,7 @@ let previousPixelY = -1;
 let x = -1;
 let y = -1;
 let colorPreviousPixel = '#FFFFFF';
+let position = document.getElementById("position");
 
 // Event listener for canvas clicks
 canvas.addEventListener('click', function (e) {
@@ -42,15 +43,16 @@ canvas.addEventListener('click', function (e) {
     let rect = canvas.getBoundingClientRect();
 
     if (isScaled){
+        console.log(e.clientX, rect.left)
         x = Math.floor((e.clientX - rect.left) / upScale);
         y = Math.floor((e.clientY - rect.top) / upScale);
     }
     else {
+        console.log(e.clientX, rect.left)
         x = Math.floor((e.clientX - rect.left) / baseScale);
         y = Math.floor((e.clientY - rect.top) / baseScale);
     }
 
-    let position = document.getElementById("position");
     position.innerHTML = "" + x + "," + y;
 
     //si on ne clique pas au même endroit

@@ -4,8 +4,26 @@ const upScale = 25;
 var canvas = document.getElementById("pixel_war");
 const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
-ctx.fillStyle = "white";
-ctx.fillRect(0, 0, 100, 100);
+var root = document.querySelector(':root') ;
+var rootStyles = getComputedStyle(root) ;
+
+fetch('private/taille.txt')
+    .then(response => response.text())
+    .then(data => {
+        [width, height] = data.split(',');
+        canvas.width = parseInt(width);
+        canvas.height = parseInt(height);
+        ctx.fillStyle = "white"; // Set fill style to white
+        ctx.fillRect(0, 0, width, height); // Fill the canvas with white color
+
+        console.log(width, height);
+        root.style.setProperty('--width', width + 'px');
+        root.style.setProperty('--height', height + 'px');
+        console.log(rootStyles.getPropertyValue('--width'));
+    })
+    .catch(error => {
+        console.error('Error reading file:', error);
+});
 
 // Code for the button scaling the canvas
 var isScaled = false;
