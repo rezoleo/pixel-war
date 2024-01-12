@@ -16,10 +16,8 @@ fetch('private/taille.txt')
         ctx.fillStyle = "white"; // Set fill style to white
         ctx.fillRect(0, 0, width, height); // Fill the canvas with white color
 
-        console.log(width, height);
         root.style.setProperty('--width', width + 'px');
         root.style.setProperty('--height', height + 'px');
-        console.log(rootStyles.getPropertyValue('--width'));
     })
     .catch(error => {
         console.error('Error reading file:', error);

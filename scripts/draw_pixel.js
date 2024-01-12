@@ -1,13 +1,30 @@
-/*
-//Event listener for uploading color on backend txt file, to update later
+
 document.getElementById('uploadColorButton').addEventListener('click', function () {
-    // Get the selected color from the canvas
-    var selectedColor = getSelectedColor();
-    
-    // Update the color of the selected pixel
-    updatePixelColor(selectedColor);
+   
+    var data = {
+        x: x,
+        y: y,
+        color: ctx.fillStyle
+    };
+
+    if (x != -1 || y != -1) {
+        // Utilisation de la fonction fetch pour envoyer une requête POST
+        fetch('write_pixel.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête :', error);
+        });
+    }
+    else {
+        alert("Veuillez sélectionner un pixel");
+    }
 });
-*/
+
 
 // Function to get the color of the selected pixel
 function getSelectedColor() {
@@ -43,17 +60,15 @@ canvas.addEventListener('click', function (e) {
     let rect = canvas.getBoundingClientRect();
 
     if (isScaled){
-        console.log(e.clientX, rect.left)
         x = Math.floor((e.clientX - rect.left) / upScale);
         y = Math.floor((e.clientY - rect.top) / upScale);
     }
     else {
-        console.log(e.clientX, rect.left)
         x = Math.floor((e.clientX - rect.left) / baseScale);
         y = Math.floor((e.clientY - rect.top) / baseScale);
     }
 
-    position.innerHTML = "" + x + "," + y;
+    position.innerHTML = "" + y + "," + x; //y est l'ordonnée et x l'abscisse donc y est le nombre de lignes et x le nombre de colonnes (affichage selon ligne, colonne)
 
     //si on ne clique pas au même endroit
     if (((x != previousPixelX) || (y != previousPixelY))){
