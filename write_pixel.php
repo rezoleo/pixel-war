@@ -47,13 +47,18 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
     // Utilise l'index de couleur pour faire les opérations nécessaires
     $filename = 'private/pixels.bin';
     $file = fopen($filename, 'r+b');
-    $offset = (int)($line * $width + $column / 2);
+    // Attention à la priorité des opérations
+    $offset = (int)(($line * $width + $column) / 2);
     fseek($file, $offset, SEEK_SET);
 
     echo $offset . "\n";
 
     $byte = fread($file, 1);
-    $byte = ord($byte);
+    // Lire un octet du fichier fait avancer le curseur, il faut donc re-seek au bon offset
+    fseek($file, $offset, SEEK_SET);
+    // On réutilise pack et unpack, comme ça a été fait à l'initialisation (dans init_pixels.php)
+    $byte = unpack("C", $byte);
+    $byte = $byte[1];
 
     echo $byte . "\n";
 
@@ -70,7 +75,7 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
 
         echo $byte;
 
-        fwrite($file, chr($byte));
+        fwrite($file, pack("C", $byte));
     }
     else {
         //tout dépend de la ligne si la ligne est paire c'est comme avant, sinon c'est l'inverse
@@ -83,7 +88,7 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
 
             echo $byte;
 
-            fwrite($file, chr($byte));
+            fwrite($file, pack("C", $byte));
         }
         else{
             if ($column % 2 == 0) {
@@ -94,7 +99,7 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
 
             echo $byte;
 
-            fwrite($file, chr($byte));
+            fwrite($file, pack("C", $byte));
         
         }
     }
@@ -109,4 +114,5 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
     header("HTTP/1.1 400 Bad Request");
     exit();
 }
+
 ?>
