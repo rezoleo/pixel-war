@@ -51,16 +51,12 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
     $offset = (int)(($line * $width + $column) / 2);
     fseek($file, $offset, SEEK_SET);
 
-    echo $offset . "\n";
-
     $byte = fread($file, 1);
     // Lire un octet du fichier fait avancer le curseur, il faut donc re-seek au bon offset
     fseek($file, $offset, SEEK_SET);
     // On réutilise pack et unpack, comme ça a été fait à l'initialisation (dans init_pixels.php)
     $byte = unpack("C", $byte);
     $byte = $byte[1];
-
-    echo $byte . "\n";
 
     //écriture du pixel dans le fichier en fonction du nombre de colonnes total (width) et de la colonne actuelle (column) (chaque pixel est codé sur 4 bits, donc 2 pixels par octet)
     //si le nombre de colonnes total (width) est pair l'écriture sur les bits de poids ou faible se fait uniquement en fonction de la colonne actuelle (column)
@@ -73,8 +69,6 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
             $byte = ($byte & 0x0F) | ($colorIndex << 4);
         }
 
-        echo $byte;
-
         fwrite($file, pack("C", $byte));
     }
     else {
@@ -86,8 +80,6 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
                 $byte = ($byte & 0x0F) | ($colorIndex << 4);
             }
 
-            echo $byte;
-
             fwrite($file, pack("C", $byte));
         }
         else{
@@ -97,8 +89,6 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
                 $byte = ($byte & 0x0F) | $colorIndex;
             }
 
-            echo $byte;
-
             fwrite($file, pack("C", $byte));
         
         }
@@ -107,6 +97,7 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
     //fin de la partie écriture du pixel dans le fichier en fonction des différents cas
 
     fclose($file);
+    echo "success";
     exit();
 
 } else {

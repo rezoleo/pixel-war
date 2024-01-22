@@ -7,7 +7,7 @@ const ctx = canvas.getContext("2d", { willReadFrequently: true });
 var root = document.querySelector(':root') ;
 var rootStyles = getComputedStyle(root) ;
 
-fetch('private/taille.txt')
+fetch('readTaille.php')
     .then(response => response.text())
     .then(data => {
         [width, height] = data.split(',');

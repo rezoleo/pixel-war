@@ -16,6 +16,16 @@ document.getElementById('uploadColorButton').addEventListener('click', function 
             },
             body: JSON.stringify(data)
         })
+        .then(response => response.text())
+        .then(data => {
+            console.log('Success:', data);
+            if (data == "success") {
+                refreshCanva();
+            }
+            else {
+                alert("Erreur lors de l'écriture du pixel");
+            }
+        })
         .catch(error => {
             console.error('Erreur lors de la requête :', error);
         });
