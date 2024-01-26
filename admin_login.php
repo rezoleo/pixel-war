@@ -18,4 +18,3 @@ if (isset($_POST['passwd'])) {
         exit();
     }
 }
-?>
