@@ -105,5 +105,3 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
     header("HTTP/1.1 400 Bad Request");
     exit();
 }
-
-?>

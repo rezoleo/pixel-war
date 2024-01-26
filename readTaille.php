@@ -7,4 +7,3 @@ $fileContent = file_get_contents($filename);
 
 // Output the content
 echo $fileContent;
-?>
