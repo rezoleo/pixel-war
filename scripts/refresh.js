@@ -35,10 +35,10 @@ function refreshCanva() {
 
 
 function drawOnCanva(binaryData, width) {
-    console.log(width);
+    let choosenColor = ctx.fillStyle;
     
-    x = 0;
-    y = 0;
+    let colonne = 0;
+    let ligne = 0;
 
     let colors = [
         "#FFFFFF", "#E4E4E4", "#888888", "#222222",
@@ -46,7 +46,6 @@ function drawOnCanva(binaryData, width) {
         "#E5D900", "#94E044", "#02BE01", "#00D3DD",
         "#0083C7", "#0000EA", "#CD6EEA", "#820080"
     ];
-    console.log(binaryData.length);
 
     for (let binary of binaryData) {
         binary_as_int = binary.charCodeAt(0);
@@ -56,15 +55,12 @@ function drawOnCanva(binaryData, width) {
         let poids_fort_as_int = (binary_as_int & masque_poids_fort) >> 4;
 
         ctx.fillStyle = colors[poids_fort_as_int];
-        ctx.fillRect(x, y, 1, 1);
+        ctx.fillRect(colonne, ligne, 1, 1);
 
-        console.log(x, y, colors[poids_fort_as_int]);
-
-
-        x += 1;
-        if (x == width) {
-            x = 0;
-            y++;
+        colonne += 1;
+        if (colonne == width) {
+            colonne = 0;
+            ligne++;
         }
 
         // Masque pour les 4 bits de poids faible
@@ -72,13 +68,21 @@ function drawOnCanva(binaryData, width) {
         let poids_faible_as_int = binary_as_int & masque_poids_faible;
 
         ctx.fillStyle = colors[poids_faible_as_int];
-        ctx.fillRect(x, y, 1, 1);
-        console.log(x, y, colors[poids_faible_as_int]);
+        ctx.fillRect(colonne, ligne, 1, 1);
 
-        x += 1;
-        if (x == width) {
-            x = 0;
-            y++;
+        colonne += 1;
+        if (colonne == width) {
+            colonne = 0;
+            ligne++;
         }
     }
+
+    ctx.fillStyle = choosenColor;
+
+    x = -1;
+    y = -1;
+    previousPixelX = -1;
+    previousPixelY = -1;
+    position.innerHTML = "?,?"
+
 }

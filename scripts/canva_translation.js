@@ -13,9 +13,7 @@ fetch('readTaille.php')
         [width, height] = data.split(',');
         canvas.width = parseInt(width);
         canvas.height = parseInt(height);
-        ctx.fillStyle = "white"; // Set fill style to white
-        ctx.fillRect(0, 0, width, height); // Fill the canvas with white color
-
+        
         root.style.setProperty('--width', width + 'px');
         root.style.setProperty('--height', height + 'px');
     })

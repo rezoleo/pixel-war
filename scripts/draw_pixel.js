@@ -37,7 +37,7 @@ document.getElementById('uploadColorButton').addEventListener('click', function 
 
 
 // Function to get the color of the selected pixel
-function getSelectedColor() {
+function getSelectedColor(x,y) {
     let pixelColor;
     let imageData;
 
@@ -77,31 +77,30 @@ canvas.addEventListener('click', function (e) {
         x = Math.floor((e.clientX - rect.left) / baseScale);
         y = Math.floor((e.clientY - rect.top) / baseScale);
     }
-
+    
     position.innerHTML = "" + y + "," + x; //y est l'ordonnée et x l'abscisse donc y est le nombre de lignes et x le nombre de colonnes (affichage selon ligne, colonne)
 
     //si on ne clique pas au même endroit
     if (((x != previousPixelX) || (y != previousPixelY))){
-        colorPreviousPixel = getSelectedColor();
-        updatePixelColor(colorPreviousPixel);
+        updatePixelColor();
         previousPixelX = x;
         previousPixelY = y;
     }
 });
 
 // Function to update the color of the selected pixel in front
-function updatePixelColor(previousColor) {
+function updatePixelColor() {
     let currentColor = ctx.fillStyle;
 
-    //make the previous pixel the color it was before
-    ctx.fillStyle = previousColor;
-    if ((previousPixelX) !== -1 && (previousPixelY) !== -1) {
+    if ((previousPixelX !== -1) && (previousPixelY !== -1)) {
+        ctx.fillStyle = colorPreviousPixel;
         ctx.fillRect(previousPixelX, previousPixelY, 1, 1);
     }
 
-    ctx.fillStyle = currentColor
-    //update the color of the current pixel
+    colorPreviousPixel = getSelectedColor(x, y);
+
     if ((x !== -1) && (y !== -1)) {
+        ctx.fillStyle = currentColor;
         ctx.fillRect(x, y, 1, 1);
     }
 }
