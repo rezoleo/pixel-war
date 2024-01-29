@@ -18,7 +18,6 @@ document.getElementById('uploadColorButton').addEventListener('click', function 
         })
         .then(response => response.text())
         .then(data => {
-            console.log('Success:', data);
             if (data == "success") {
                 refreshCanva();
             }
