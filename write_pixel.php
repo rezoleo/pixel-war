@@ -3,8 +3,8 @@
 session_start();
 
 // Vérifier si l'utilisateur est authentifié
-if (!isset($_SESSION['authentificated']) || $_SESSION['authentificated'] !== true) {
-    header("Location: pixel_war.html");
+if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+    header("HTTP/1.1 400 Bad Request");
     exit();
 }
 
