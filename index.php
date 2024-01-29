@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+$_SESSION['authenticated'] = true;
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

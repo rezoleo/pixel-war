@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+
+// Vérifier si l'utilisateur est authentifié
+if (!isset($_SESSION['authentificated']) || $_SESSION['authentificated'] !== true) {
+    header("Location: pixel_war.html");
+    exit();
+}
+
 $dimensions = file_get_contents('private/taille.txt');
 list($width, $height) = explode(',', $dimensions);
 
