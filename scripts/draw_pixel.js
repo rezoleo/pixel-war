@@ -21,6 +21,12 @@ document.getElementById('uploadColorButton').addEventListener('click', function 
             if (data == "success") {
                 refreshCanva();
             }
+            else if (data == "Too many requests") {
+                alert("Trop de requêtes, veuillez patienter");
+            }
+            else if (data == "Pas identifié") {
+                alert("vous n'êtes pas identifié passez par la page d'accueil pour avoir une session");
+            }
             else {
                 alert("Erreur lors de l'écriture du pixel");
             }

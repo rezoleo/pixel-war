@@ -1,11 +1,77 @@
 <?php
 
+include('./private/config.php');
+
 session_start();
 
 // Vérifier si l'utilisateur est authentifié
 if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
     header("HTTP/1.1 400 Bad Request");
+    echo "Pas authentifié";
     exit();
+}
+
+// Function to check and update IP timestamp in the CSV file
+//return true if the IP is allowed to write a pixel, false otherwise and update the timestamp in the CSV file
+function authenticateIP($ip, $delay) {
+    $csvFile = 'private/ip_timestamp.csv';
+
+    // Read existing CSV data
+    $csvData = [];
+    if (($handle = fopen($csvFile, 'r')) !== false) {
+        //50 is a generous maximum length for a line in the CSV file
+        while (($data = fgetcsv($handle, 50, ',')) !== false) {
+            $csvData[] = $data;
+        }
+        fclose($handle);
+    }
+
+    // Check if the IP exists in the CSV data
+    $foundIP = false;
+    foreach ($csvData as $index => $row) {
+        list($existingIP, $timestamp) = $row;
+
+        // If IP is found, check the timestamp
+        if ($existingIP === $ip) {
+            $foundIP = true;
+
+            // Check if the time difference is greater than the delay
+            $currentTime = time();
+            if (($currentTime - $timestamp) > $delay) {
+                // Update timestamp and return true
+                $csvData[$index][1] = $currentTime;
+
+                // Write the modified data back to the CSV file
+                if (($handle = fopen($csvFile, 'w')) !== false) {
+                    foreach ($csvData as $row) {
+                        fputcsv($handle, $row);
+                    }
+                    fclose($handle);
+                }
+
+                return true;
+            } else {
+                // IP found, but not allowed yet
+                echo "Too many requests";
+                return false;
+            }
+        }
+    }
+
+    // IP not found, add to CSV and return true
+    if (!$foundIP) {
+        $newData = [$ip, time()];
+
+        // Append the new data to the CSV file
+        if (($handle = fopen($csvFile, 'a')) !== false) {
+            fputcsv($handle, $newData);
+            fclose($handle);
+        }
+
+        return true;
+    }
+
+    return false;
 }
 
 $dimensions = file_get_contents('private/taille.txt');
@@ -46,6 +112,12 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
     if (!$isValid) {
         // Invalid data
         header("HTTP/1.1 400 Bad Request");
+        exit();
+    }
+
+    if (!authenticateIP($_SERVER['REMOTE_ADDR'], $delay)) {
+        // Too many requests
+        header("HTTP/1.1 429 Too Many Requests");
         exit();
     }
 
