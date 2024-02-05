@@ -207,29 +207,40 @@ header {
     flex-wrap: wrap-reverse;
 }
 
-/* Style for the selected class */
 .colorButton.selected {
     border: 3px solid rgb(0, 255, 179);
 }
 
-.position-div{
+.user-information{
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    z-index: 2;
+    z-index: 2; 
     background: rgb(77, 64, 70);
     border-radius: 10px;
-    padding: 0.4em 0.65em;
+    padding: 0.4em 0.4em;
     text-align: center;
 }
 
-.position-div p {
+.user-information p {
     font-family: "Roboto";
     font-size: 17px;
     color: #ffffff;
     margin: 0;
     padding: 0;
+}
+
+.timer-div{
+    margin: 0 5px;
+}
+
+.timer-div p {
+    color : green;
+}
+
+.position-div{
+    margin: 0 5px;
 }
 
 #uploadColorButton{

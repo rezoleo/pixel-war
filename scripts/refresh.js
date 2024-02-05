@@ -83,6 +83,5 @@ function drawOnCanva(binaryData, width) {
     y = -1;
     previousPixelX = -1;
     previousPixelY = -1;
-    position.innerHTML = "?,?"
-
+    position.innerHTML = "(?,?)"
 }

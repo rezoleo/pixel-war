@@ -20,12 +20,18 @@ document.getElementById('uploadColorButton').addEventListener('click', function 
         .then(data => {
             if (data == "success") {
                 refreshCanva();
+                const timerElement = document.getElementById("timer")
+                let request = new XMLHttpRequest();
+                let delay = 0;
+                request.onload = function() {
+                    delay = request.responseText;
+                };
+                request.open("GET", "get_timer.php", false);
+                request.send();
+                timer(timerElement, delay);
             }
             else if (data == "Too many requests") {
                 alert("Trop de requêtes, veuillez patienter");
-            }
-            else if (data == "Pas identifié") {
-                alert("vous n'êtes pas identifié passez par la page d'accueil pour avoir une session");
             }
             else {
                 alert("Erreur lors de l'écriture du pixel");
@@ -77,13 +83,17 @@ canvas.addEventListener('click', function (e) {
     if (isScaled){
         x = Math.floor((e.clientX - rect.left) / upScale);
         y = Math.floor((e.clientY - rect.top) / upScale);
+        x = Math.max(0,x);
+        y = Math.max(0,y);
     }
     else {
         x = Math.floor((e.clientX - rect.left) / baseScale);
         y = Math.floor((e.clientY - rect.top) / baseScale);
+        x = Math.max(0,x);
+        y = Math.max(0,y);
     }
     
-    position.innerHTML = "" + y + "," + x; //y est l'ordonnée et x l'abscisse donc y est le nombre de lignes et x le nombre de colonnes (affichage selon ligne, colonne)
+    position.innerHTML = "(" + y + "," + x + ")"; //y est l'ordonnée et x l'abscisse donc y est le nombre de lignes et x le nombre de colonnes (affichage selon ligne, colonne)
 
     //si on ne clique pas au même endroit
     if (((x != previousPixelX) || (y != previousPixelY))){
@@ -108,4 +118,17 @@ function updatePixelColor() {
         ctx.fillStyle = currentColor;
         ctx.fillRect(x, y, 1, 1);
     }
+}
+
+function timer(timerElement, seconds) {
+    let timer = setInterval(function () {
+        seconds--;
+        timerElement.innerHTML = seconds;
+        timerElement.style.color = "red";
+        if (seconds <= 0) {
+            clearInterval(timer);
+            timerElement.innerHTML = "Ready";
+            timerElement.style.color = "green";
+        }
+    }, 1000);
 }

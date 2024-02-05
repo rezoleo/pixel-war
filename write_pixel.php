@@ -2,15 +2,6 @@
 
 include('./private/config.php');
 
-session_start();
-
-// Vérifier si l'utilisateur est authentifié
-if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
-    header("HTTP/1.1 400 Bad Request");
-    echo "Pas authentifié";
-    exit();
-}
-
 // Function to check and update IP timestamp in the CSV file
 //return true if the IP is allowed to write a pixel, false otherwise and update the timestamp in the CSV file
 function authenticateIP($ip, $delay) {
@@ -154,6 +145,7 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
 
 } else {
     // Données manquantes
+    echo "failed";
     header("HTTP/1.1 400 Bad Request");
     exit();
 }
