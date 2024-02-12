@@ -20,15 +20,12 @@ document.getElementById('uploadColorButton').addEventListener('click', function 
         .then(data => {
             if (data == "success") {
                 refreshCanva();
-                const timerElement = document.getElementById("timer")
-                let request = new XMLHttpRequest();
-                let delay = 0;
-                request.onload = function() {
-                    delay = request.responseText;
-                };
-                request.open("GET", "get_timer.php", false);
-                request.send();
-                timer(timerElement, delay);
+                const timerElement = document.getElementById("timer");
+                fetch('get_timer.php')
+                .then(response => response.text)
+                .then(data => {
+                    timer(timerElement,data)
+                });
             }
             else if (data == "Too many requests") {
                 alert("Trop de requêtes, veuillez patienter");
@@ -77,6 +74,33 @@ let position = document.getElementById("position");
 
 // Event listener for canvas clicks
 canvas.addEventListener('click', function (e) {
+    // Calculate the pixel coordinates based on the click position
+    let rect = canvas.getBoundingClientRect();
+
+    if (isScaled){
+        x = Math.floor((e.clientX - rect.left) / upScale);
+        y = Math.floor((e.clientY - rect.top) / upScale);
+        x = Math.max(0,x);
+        y = Math.max(0,y);
+    }
+    else {
+        x = Math.floor((e.clientX - rect.left) / baseScale);
+        y = Math.floor((e.clientY - rect.top) / baseScale);
+        x = Math.max(0,x);
+        y = Math.max(0,y);
+    }
+    
+    position.innerHTML = "(" + y + "," + x + ")"; //y est l'ordonnée et x l'abscisse donc y est le nombre de lignes et x le nombre de colonnes (affichage selon ligne, colonne)
+
+    //si on ne clique pas au même endroit
+    if (((x != previousPixelX) || (y != previousPixelY))){
+        updatePixelColor();
+        previousPixelX = x;
+        previousPixelY = y;
+    }
+});
+
+canvas.addEventListener('touch', function (e) {
     // Calculate the pixel coordinates based on the click position
     let rect = canvas.getBoundingClientRect();
 
