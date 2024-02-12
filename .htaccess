@@ -1,4 +1,0 @@
-# Deny access to the /private/ directory
-<Directory "./private/">
-    Deny from all
-</Directory>
