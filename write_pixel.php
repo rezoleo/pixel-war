@@ -5,59 +5,46 @@ include('./private/config.php');
 // Function to check and update IP timestamp in the CSV file
 //return true if the IP is allowed to write a pixel, false otherwise and update the timestamp in the CSV file
 function authenticateIP($ip, $delay) {
-    $csvFile = 'private/ip_timestamp.csv';
 
-    // Read existing CSV data
-    $csvData = [];
-    if (($handle = fopen($csvFile, 'r')) !== false) {
-        //50 is a generous maximum length for a line in the CSV file
-        while (($data = fgetcsv($handle, 50, ',')) !== false) {
-            $csvData[] = $data;
-        }
-        fclose($handle);
-    }
+    $dbPath = 'private/ip_timestamp.sqlite';
 
-    // Check if the IP exists in the CSV data
+    // Connect to the SQLite database
+    $db = new SQLite3($dbPath);
+
+    // Check if the IP exists in the database
+    $stmt = $db->prepare('SELECT timestamp FROM ip_timestamp WHERE ip = :ip');
+    $stmt->bindValue(':ip', $ip, SQLITE3_TEXT);
+    $result = $stmt->execute();
+
     $foundIP = false;
-    foreach ($csvData as $index => $row) {
-        list($existingIP, $timestamp) = $row;
+    $currentTime = time();
+
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        $foundIP = true;
+        $timestamp = $row['timestamp'];
 
         // If IP is found, check the timestamp
-        if ($existingIP === $ip) {
-            $foundIP = true;
+        if (($currentTime - $timestamp) > $delay) {
+            // Update timestamp and return true
+            $stmt = $db->prepare('UPDATE ip_timestamp SET timestamp = :timestamp WHERE ip = :ip');
+            $stmt->bindValue(':timestamp', $currentTime, SQLITE3_INTEGER);
+            $stmt->bindValue(':ip', $ip, SQLITE3_TEXT);
+            $stmt->execute();
 
-            // Check if the time difference is greater than the delay
-            $currentTime = time();
-            if (($currentTime - $timestamp) > $delay) {
-                // Update timestamp and return true
-                $csvData[$index][1] = $currentTime;
-
-                // Write the modified data back to the CSV file
-                if (($handle = fopen($csvFile, 'w')) !== false) {
-                    foreach ($csvData as $row) {
-                        fputcsv($handle, $row);
-                    }
-                    fclose($handle);
-                }
-
-                return true;
-            } else {
-                // IP found, but not allowed yet
-                echo "Too many requests";
-                return false;
-            }
+            return true;
+        } else {
+            // IP found, but not allowed yet
+            echo "Too many requests";
+            return false;
         }
     }
 
-    // IP not found, add to CSV and return true
+    // IP not found, add to database and return true
     if (!$foundIP) {
-        $newData = [$ip, time()];
-
-        // Append the new data to the CSV file
-        if (($handle = fopen($csvFile, 'a')) !== false) {
-            fputcsv($handle, $newData);
-            fclose($handle);
-        }
+        $stmt = $db->prepare('INSERT INTO ip_timestamp (ip, timestamp) VALUES (:ip, :timestamp)');
+        $stmt->bindValue(':ip', $ip, SQLITE3_TEXT);
+        $stmt->bindValue(':timestamp', $currentTime, SQLITE3_INTEGER);
+        $stmt->execute();
 
         return true;
     }
