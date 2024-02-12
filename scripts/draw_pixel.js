@@ -22,8 +22,9 @@ document.getElementById('uploadColorButton').addEventListener('click', function 
                 refreshCanva();
                 const timerElement = document.getElementById("timer");
                 fetch('get_timer.php')
-                .then(response => response.text)
+                .then(response => response.text())
                 .then(data => {
+                    debugger;
                     timer(timerElement,data)
                 });
             }
