@@ -65,6 +65,19 @@ function authenticateIP($ip, $delay) {
     return false;
 }
 
+function getIp(){
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+      $ip = $_SERVER['HTTP_CLIENT_IP'];
+    }
+    elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+      $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }
+    else{
+      $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
+}
+
 $dimensions = file_get_contents('private/taille.txt');
 list($width, $height) = explode(',', $dimensions);
 
@@ -88,11 +101,11 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
 
     $isValid = true;
 
-    if (!is_int($column) || $column < 0 || $column > $height) {
+    if (!is_int($column) || $column < 0 || $column >= $height) {
         $isValid = false;
     }
 
-    if (!is_int($line) || $line < 0 || $line > $width) {
+    if (!is_int($line) || $line < 0 || $line >= $width) {
         $isValid = false;
     }
 
@@ -106,7 +119,7 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
         exit();
     }
 
-    if (!authenticateIP($_SERVER['REMOTE_ADDR'], $delay)) {
+    if (!authenticateIP(getIp(), $delay)) {
         // Too many requests
         header("HTTP/1.1 429 Too Many Requests");
         exit();
