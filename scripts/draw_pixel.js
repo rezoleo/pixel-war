@@ -24,7 +24,6 @@ document.getElementById('uploadColorButton').addEventListener('click', function 
                 fetch('get_timer.php')
                 .then(response => response.text())
                 .then(data => {
-                    debugger;
                     timer(timerElement,data)
                 });
             }
