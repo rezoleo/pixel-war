@@ -35,6 +35,10 @@ function refreshCanva() {
 
 
 function drawOnCanva(binaryData, width) {
+    // on the initiation, the color is #000000 (due to asynchronism of fetch) but it is not a color from our color array
+    if (ctx.fillStyle == "#000000") {
+        ctx.fillStyle = "#FFFFFF"; // this is the first color of our array (and goes with the selected color in create_buttons.js)
+    }
     let choosenColor = ctx.fillStyle;
     
     let colonne = 0;

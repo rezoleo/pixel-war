@@ -14,9 +14,9 @@ function createColorButtons() {
     colors.forEach(function (color) {
         var colorButton = document.createElement('button');
         colorButton.style.backgroundColor = color;
-        colorButton.style.width = '40px';
-        colorButton.style.height = '40px';
-        colorButton.style.margin = '3px';
+        colorButton.style.width = '40px'; //to change based on the screen size
+        colorButton.style.height = '40px'; //to change based on the screen size
+        colorButton.style.margin = '3px'; //to change based on the screen size
         colorButton.addEventListener('click', function () {
             // Handle color selection
             ctx.fillStyle = color;
@@ -34,7 +34,10 @@ function createColorButtons() {
         // Add a class to the button
         colorButton.classList.add('colorButton');
         colorContainer.appendChild(colorButton);
+
     });
+    let firstButton = document.querySelector('.colorButton');
+    firstButton.classList.add('selected');
 }
 
 // Call the function to create color buttons

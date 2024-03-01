@@ -1,4 +1,3 @@
-
 document.getElementById('uploadColorButton').addEventListener('click', function () {
    
     var data = {
