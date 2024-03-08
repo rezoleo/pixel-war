@@ -1,11 +1,18 @@
-const baseScale = 5;
+var root = document.querySelector(':root');
+var rootStyles = getComputedStyle(root);
+
+let width_pixel_war = parseInt(rootStyles.getPropertyValue('--width_pixel_war'));
+let height_pixel_war = parseInt(rootStyles.getPropertyValue('--height_pixel_war'));
+
 const upScale = 25;
+let baseScale = 0;
+
+updateBaseScale();
+
 
 var canvas = document.getElementById("pixel_war");
 const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
-var root = document.querySelector(':root') ;
-var rootStyles = getComputedStyle(root) ;
 
 fetch('readTaille.php')
     .then(response => response.text())
@@ -14,8 +21,8 @@ fetch('readTaille.php')
         canvas.width = parseInt(width);
         canvas.height = parseInt(height);
         
-        root.style.setProperty('--width', width + 'px');
-        root.style.setProperty('--height', height + 'px');
+        root.style.setProperty('--width_pixel_war', width + 'px');
+        root.style.setProperty('--height_pixel_war', height + 'px');
     })
     .catch(error => {
         console.error('Error reading file:', error);
@@ -28,6 +35,7 @@ canvas.style.transformOrigin = 'top center';
 
 document.getElementById('scaleButton').addEventListener('click', function() {
 
+    updateBaseScale();
     // Toggle between scales
     if (isScaled) {
         canvas.style.transform = 'scale(' + baseScale+ ',' + baseScale + ')';
@@ -89,3 +97,15 @@ document.addEventListener('mouseup', function (e) {
     finishMouseX += e.clientX - startMouseX;
     finishMouseY += e.clientY - startMouseY;
 });
+
+function updateBaseScale(){
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
+    
+    if (0.9*screenWidth/width_pixel_war > 0.75*screenHeight/height_pixel_war){ //estimated free space occupied by the pixel war after transform
+        baseScale = 0.75*screenHeight/height_pixel_war;
+    }
+    else {
+        baseScale = 0.9*screenWidth/width_pixel_war;
+    }
+}
