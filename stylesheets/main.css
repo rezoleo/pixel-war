@@ -250,7 +250,8 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: absolute;/*
+    transform: translate( 0, -120%);*/
     z-index: 2; 
     background: rgb(77, 64, 70);
     border-radius: 10px;
@@ -316,4 +317,12 @@ header {
 
 #refreshButton:hover {
     background-color: rgb(132,21,69);
+}
+
+.pixel_war_body_viewing {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: -2;
+    position: relative;
 }

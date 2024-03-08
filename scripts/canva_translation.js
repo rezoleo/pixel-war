@@ -9,10 +9,8 @@ let baseScale = 0;
 
 updateBaseScale();
 
-
 var canvas = document.getElementById("pixel_war");
 const ctx = canvas.getContext("2d", { willReadFrequently: true });
-
 
 fetch('readTaille.php')
     .then(response => response.text())
