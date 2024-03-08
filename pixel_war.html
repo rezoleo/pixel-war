@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pixel War Rezoleo</title>
     <link rel="stylesheet" href="stylesheets/main.css">
+    <script src="https://kit.fontawesome.com/1ec8cb4a21.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header>
+    <header id="header">
         <nav class="menu">
             <div class="menu-links">
-                <a class="lien logo-link" id="case_logo">
+                <div class="logo-link" id="case_logo">
                     <img src="images/rezoleo_logo.png" alt="logo" id="logo" style="width : 70px">
-                </a>
+                </div>
                 <a class="lien" href="index.html" id="case_1">
                     <p>Accueil</p>
                 </a>
@@ -24,7 +25,24 @@
                 </div>
             </div>
         </nav>
+        <div class=responsive-top>
+            <span class="open-nav" id="open-nav" onclick="openNav()"><i class="fa-solid fa-bars"></i></span>
+            <span class="close-nav" id="close-nav" onclick="closeNav()"><i class="fa-solid fa-xmark"></i></span>
+            <img src="images/rezoleo_logo.png" alt="logo" id="logo">
+            <div class="text">
+                <p>Bienvenue dans la Pixel War Rezoleo</p>
+            </div>
+        </div>
+        <nav class="responsive-menu" id="responsive-navbar">
+            <a class="lien" href="home.php" id="case_1">
+                <p>Accueil</p>
+            </a>
+            <a class="lien" href="header.php" id="case_2">
+                <p>Pixel War</p>
+            </a>
+        </nav>
     </header>
+    <main id="main">
     <div id="container" class="pixel_war_body">
         <div class = "user-information">
             <div class = "timer-div">
@@ -42,6 +60,8 @@
         <button id="uploadColorButton">Upload Color</button>
         <button id="refreshButton">Refresh</button>
     </div>
+    </main>
+    <script src="scripts/responsive.js"></script>
     <script src="scripts/canva_translation.js"></script>
     <script src="scripts/create_buttons.js"></script>
     <script src="scripts/draw_pixel.js"></script>
