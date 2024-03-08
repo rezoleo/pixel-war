@@ -89,33 +89,3 @@ document.addEventListener('mouseup', function (e) {
     finishMouseX += e.clientX - startMouseX;
     finishMouseY += e.clientY - startMouseY;
 });
-
-document.addEventListener('touchstart', function (e) {
-    isDragging = true;
-    startTouchX = e.touches[0].clientX;
-    startTouchY = e.touches[0].clientY;
-});
-
-document.addEventListener('touchmove', function (e) {
-    if (isDragging) {
-        // Calculate the distance moved
-        var deltaX = e.touches[0].clientX - startTouchX;
-        var deltaY = e.touches[0].clientY - startTouchY;
-
-        translateX = deltaX + finishTouchX;
-        translateY = deltaY + finishTouchY;
-
-        // Update the canvas position
-        if (isScaled) {
-            canvas.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(20, 20)';
-        } else {
-            canvas.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(4, 4)';
-        }
-    }
-});
-
-document.addEventListener('touchend', function (e) {
-    isDragging = false;
-    finishTouchX += e.changedTouches[0].clientX - startTouchX;
-    finishTouchY += e.changedTouches[0].clientY - startTouchY;
-});

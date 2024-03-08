@@ -14,9 +14,18 @@ function createColorButtons() {
     colors.forEach(function (color) {
         var colorButton = document.createElement('button');
         colorButton.style.backgroundColor = color;
-        colorButton.style.width = '40px'; //to change based on the screen size
-        colorButton.style.height = '40px'; //to change based on the screen size
-        colorButton.style.margin = '3px'; //to change based on the screen size
+        let width = window.innerWidth;
+        window.addEventListener('resize', function() {
+            width = window.innerWidth;
+            console.log(width);
+            buttonWidth = width / 40;
+            colorButton.style.width = buttonWidth.toString() + 'px';
+            colorButton.style.height = buttonWidth.toString() + 'px';
+        });
+        buttonWidth = width / 40;
+        colorButton.style.width = buttonWidth.toString() + 'px'; 
+        colorButton.style.height = buttonWidth.toString() + 'px'; 
+        colorButton.style.margin = `${parseInt(width / 500)}px`;
         colorButton.addEventListener('click', function () {
             // Handle color selection
             ctx.fillStyle = color;

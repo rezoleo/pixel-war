@@ -99,19 +99,19 @@ canvas.addEventListener('click', function (e) {
     }
 });
 
-canvas.addEventListener('touch', function (e) {
+canvas.addEventListener('touchstart', function (e) {
     // Calculate the pixel coordinates based on the click position
     let rect = canvas.getBoundingClientRect();
 
     if (isScaled){
-        x = Math.floor((e.clientX - rect.left) / upScale);
-        y = Math.floor((e.clientY - rect.top) / upScale);
+        x = Math.floor((e.touches[0].clientX - rect.left) / upScale);
+        y = Math.floor((e.touches[0].clientY - rect.top) / upScale);
         x = Math.max(0,x);
         y = Math.max(0,y);
     }
     else {
-        x = Math.floor((e.clientX - rect.left) / baseScale);
-        y = Math.floor((e.clientY - rect.top) / baseScale);
+        x = Math.floor((e.touches[0].clientX - rect.left) / baseScale);
+        y = Math.floor((e.touches[0].clientY - rect.top) / baseScale);
         x = Math.max(0,x);
         y = Math.max(0,y);
     }
