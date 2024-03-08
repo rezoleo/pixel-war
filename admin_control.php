@@ -30,13 +30,21 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
                     <p>Pixel War</p>
                 </a>
                 <div class="text-container">
-                    <p>Voici la page control</p>
+                    <p>Voici la page de contrôle</p>
                 </div>
             </div>
-                </nav>
-            </header>
-            <div class="main-body">
-                <p>This is the main text of my webpage.</p>
-            </div>
-        </body>
+        </nav>
+    </header>
+    <div class="pixel_war_body_admin">
+        <canvas id="pixel_war"></canvas>
+        <div class="admin_writing_pixels">
+            <form class="form_white_square" id="cleanPixelWarForm">
+                <input type="text" name="position_square" placeholder="(?,?)">
+                <input type="number" name="square_size">
+                <button id="uploadModificationButton">Upload Modification</button>
+            </form>
+        </div>
+    </div>
+    <script src="scripts/refresh_admin.js"></script>
+</body>
 </html>

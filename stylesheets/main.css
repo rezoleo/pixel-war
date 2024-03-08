@@ -126,6 +126,38 @@ header {
     background-color: rgb(132,21,69);
 }
 
+.form_white_square{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+}
+
+.form_white_square input {
+    margin: 10px auto; 
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+.form_white_square button{
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    margin: 15px auto;
+    cursor: pointer;
+    color: #ffffff;
+    transition: .4s ease-in;
+    font-size: 1em;
+    background-color: rgb(75, 13, 40);
+}
+
+.form_white_square button:hover{
+    background-color: rgb(132,21,69);
+}
+
 .error-container {
     font-family : 'Roboto';
     display: flex;
@@ -147,16 +179,23 @@ header {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    height: var(--height_pixel_war);
-    width: var(--width_pixel_war);
     margin: 20px auto;
     z-index: -2;
     position: relative;
 }
 
+.pixel_war_body_admin {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 20px;
+    z-index: -2;
+    position: relative;
+}
+
 #pixel_war {
-    width: 100%; 
-    height: 100%;
+    width: var(--height_pixel_war); 
+    height: var(--height_pixel_war);
     z-index: -1;
     image-rendering: pixelated;
 }

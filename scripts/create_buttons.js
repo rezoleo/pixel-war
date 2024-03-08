@@ -17,7 +17,6 @@ function createColorButtons() {
         let width = window.innerWidth;
         window.addEventListener('resize', function() {
             width = window.innerWidth;
-            console.log(width);
             buttonWidth = width / 40;
             colorButton.style.width = buttonWidth.toString() + 'px';
             colorButton.style.height = buttonWidth.toString() + 'px';
