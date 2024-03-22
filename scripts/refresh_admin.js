@@ -4,6 +4,8 @@ const ctx = canvas.getContext("2d", { willReadFrequently: true });
 var root = document.querySelector(':root') ;
 var rootStyles = getComputedStyle(root) ;
 
+var refresh_bolean = true;
+
 fetch('readTaille.php')
     .then(response => response.text())
     .then(data => {
@@ -16,7 +18,7 @@ fetch('readTaille.php')
         canvas.style.transform = 'scale(' + 3 + ',' + 3 + ')';
         canvas.style.transformOrigin = 'top right';
         refreshCanva();
-        setInterval(refreshCanva, 3000);    
+        setInterval(refreshCanva, 3000);
     })
     .catch(error => {
         console.error('Error reading file:', error);
@@ -79,3 +81,5 @@ function drawOnCanva(binaryData, width) {
         }
     }
 }
+
+//change the form with the pixel_war beeing able to be clicked and dragged to create a rectangle white pixel

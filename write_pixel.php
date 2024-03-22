@@ -88,11 +88,11 @@ if (isset($data['x']) && isset($data['y']) && isset($data['color'])) {
 
     $isValid = true;
 
-    if (!is_int($column) || $column < 0 || $column >= $height) {
+    if (!is_int($column) || $column < 0 || $column >= $width) {
         $isValid = false;
     }
 
-    if (!is_int($line) || $line < 0 || $line >= $width) {
+    if (!is_int($line) || $line < 0 || $line >= $height) {
         $isValid = false;
     }
 

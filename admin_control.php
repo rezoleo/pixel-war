@@ -38,10 +38,17 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
     <div class="pixel_war_body_admin">
         <canvas id="pixel_war"></canvas>
         <div class="admin_writing_pixels">
-            <form class="form_white_square" id="cleanPixelWarForm">
+            <!-- enlever le form pour remplacer par une pixel war clickable pour drag et faire des rectangles blancs -->
+            <form class="form_white_square" id="cleanPixelWarForm" action="pixel_whitening.php" method="post">
                 <input type="text" name="position_square" placeholder="(?,?)">
                 <input type="number" name="square_size">
                 <button id="uploadModificationButton">Upload Modification</button>
+            </form>
+        </div>
+        <div>
+            <form class="form" action="augment_pixel_war_size.php" method="post">
+                <input type="number" name="new_line" placeholder="New line size">
+                <button id="uploadModificationButton">Augment Pixel War Size</button>
             </form>
         </div>
     </div>

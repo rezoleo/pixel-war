@@ -18,9 +18,11 @@ fetch('readTaille.php')
         [width, height] = data.split(',');
         canvas.width = parseInt(width);
         canvas.height = parseInt(height);
-        
+
         root.style.setProperty('--width_pixel_war', width + 'px');
         root.style.setProperty('--height_pixel_war', height + 'px');
+        canvas.style.height = height + 'px';
+        canvas.style.width = width + 'px';
     })
     .catch(error => {
         console.error('Error reading file:', error);
