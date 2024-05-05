@@ -169,8 +169,8 @@ header {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin: 20px auto;
-    z-index: -2;
+    margin: 20px auto 35px auto;
+    z-index: -1;
     position: relative;
 }
 
@@ -178,15 +178,24 @@ header {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin: 20px;
+    margin: 30px;
     z-index: -2;
     position: relative;
+}
+
+.pixel_war{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: -3;
+    
 }
 
 #pixel_war {
     width: var(--height_pixel_war); 
     height: var(--height_pixel_war);
-    z-index: -1;
+    z-index: -2;
     image-rendering: pixelated;
 }
 
