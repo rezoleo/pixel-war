@@ -29,23 +29,28 @@ header {
     border-radius: 15px;
     z-index: 2;
     height: var(--height_header);
+    font-size: clamp(10px, 2vw, 20px);
 }
 
 .lien {
-    margin: 5px 20px;
+    margin: auto 1em;
     z-index: 1;
+}
+
+.logo-link{
+    margin-left: auto;
+    filter: brightness(1.2);
 }
 
 .lien:not(.logo-link){
     text-decoration: inherit;
     border-color: #ffffff;
-    padding: 0.6em 2.3em;
+    padding: 0.6em 1em;
     cursor: pointer;
-    font-size: 20px;
     color: #ffffff;
     background-image: linear-gradient(45deg, transparent 50%, #000000 50%);
     background-position: 25%;
-    background-size: 400%;
+    background-size: 500%;
     -webkit-transition: background 400ms ease-in-out, color 400ms ease-in-out;
     transition: background 400ms ease-in-out, color 400ms ease-in-out;
     border-radius: 10px;
@@ -77,21 +82,6 @@ header {
     width: 100%;
     flex-wrap: wrap;
     height: var(--height_header);
-}
-
-.text-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    z-index: 0;
-}
-
-.text-container p {
-    font-size: 25px;
-    color: #ffffff;
-    margin: 0;
-    padding: 0;
 }
 
 .form{
