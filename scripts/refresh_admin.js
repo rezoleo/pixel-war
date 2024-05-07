@@ -5,6 +5,7 @@ var root = document.querySelector(':root') ;
 var rootStyles = getComputedStyle(root) ;
 
 var refresh_bolean = true;
+let scale = 3;
 
 fetch('readTaille.php')
     .then(response => response.text())
@@ -15,10 +16,17 @@ fetch('readTaille.php')
 
         root.style.setProperty('--width', width + 'px');
         root.style.setProperty('--height', height + 'px');
-        canvas.style.transform = 'scale(' + 3 + ',' + 3 + ')';
-        canvas.style.transformOrigin = 'top right';
+        canvas.style.transform = 'scale(' + scale + ',' + scale + ')';
+        canvas.style.transformOrigin = 'top center';
         refreshCanva();
-        setInterval(refreshCanva, 3000);
+        //setInterval(refreshCanva, 3000);
+        document.getElementById('refreshButton').addEventListener('click', function () {
+            refreshCanva();
+            xStart = -1;
+            yStart = -1;
+            xEnd = -1;
+            yEnd = -1;
+        });
     })
     .catch(error => {
         console.error('Error reading file:', error);
@@ -82,4 +90,31 @@ function drawOnCanva(binaryData, width) {
     }
 }
 
-//change the form with the pixel_war beeing able to be clicked and dragged to create a rectangle white pixel
+let xStart = -1;
+let yStart = -1;
+let xEnd = -1;
+let yEnd = -1;
+
+canvas.addEventListener('mousedown', function (e) {
+    // Calculate the pixel coordinates based on the click position
+    let rect = canvas.getBoundingClientRect();
+    
+    xStart = Math.floor((e.clientX - rect.left) / scale);
+    yStart = Math.floor((e.clientY - rect.top) / scale);
+    xStart = Math.max(0,xStart);
+    yStart = Math.max(0,yStart);
+   
+});
+
+canvas.addEventListener('mouseup', function (e) {
+    // Calculate the pixel coordinates based on the click position
+    let rect = canvas.getBoundingClientRect();
+
+    xEnd = Math.floor((e.clientX - rect.left) / scale);
+    yEnd = Math.floor((e.clientY - rect.top) / scale);
+    xEnd = Math.max(0,xEnd);
+    yEnd = Math.max(0,yEnd);
+
+    ctx.fillStyle = "white";
+    ctx.fillRect(xStart, yStart, xEnd - xStart, yEnd - yStart);
+});

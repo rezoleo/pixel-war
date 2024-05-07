@@ -20,30 +20,33 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
     <header>
         <nav class="menu">
             <div class="menu-links">
-                <a class="lien logo-link" id="case_logo">
-                    <img src="images/rezoleo_logo.png" alt="logo" id="logo" style="width : 80px">
-                </a>
                 <a class="lien" href="index.html" id="case_1">
                     <p>Accueil</p>
                 </a>
                 <a class="lien" href="pixel_war.html" id="case_2">
                     <p>Pixel War</p>
                 </a>
-                <div class="text-container">
-                    <p>Voici la page de contrôle</p>
-                </div>
+                <a class="lien" href="viewing.html" id="case_2">
+                    <p>Viewing</p>
+                </a>
+                <a class="lien" href="admin_login.html" id="case_2">
+                    <U><p>Admin</p></U>
+                </a>
+                <a class="lien logo-link" id="case_logo">
+                    <img src="images/rezoleo_logo.png" alt="logo" id="logo" style="width : 80px">
+                </a>
             </div>
         </nav>
     </header>
     <div class="pixel_war_body_admin">
-        <canvas id="pixel_war"></canvas>
         <div class="admin_writing_pixels">
-            <!-- enlever le form pour remplacer par une pixel war clickable pour drag et faire des rectangles blancs -->
-            <form class="form_white_square" id="cleanPixelWarForm" action="pixel_whitening.php" method="post">
-                <input type="text" name="position_square" placeholder="(?,?)">
-                <input type="number" name="square_size">
+            <div style="height: 300px;">
+                <canvas id="pixel_war"></canvas>
+            </div>
+            <div class="buttons_writing_pixels">
+                <button id="refreshButton">Refresh</button>
                 <button id="uploadModificationButton">Upload Modification</button>
-            </form>
+            </div>
         </div>
         <div>
             <form class="form" action="augment_pixel_war_size.php" method="post">

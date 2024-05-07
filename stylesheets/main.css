@@ -116,22 +116,14 @@ header {
     background-color: rgb(132,21,69);
 }
 
-.form_white_square{
+.admin_writing_pixels{
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 15px;
 }
 
-.form_white_square input {
-    margin: 10px auto; 
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-}
-
-.form_white_square button{
+.admin_writing_pixels button{
     border-radius: 10px;
     border: none;
     outline: none;
@@ -144,7 +136,7 @@ header {
     background-color: rgb(75, 13, 40);
 }
 
-.form_white_square button:hover{
+.admin_writing_pixels button:hover{
     background-color: rgb(132,21,69);
 }
 
@@ -176,8 +168,8 @@ header {
 
 .pixel_war_body_admin {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
     margin: 30px;
     z-index: -2;
     position: relative;
@@ -324,4 +316,11 @@ header {
     align-items: flex-start;
     z-index: -2;
     position: relative;
+}
+
+.buttons_writing_pixels{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 15px;
 }
