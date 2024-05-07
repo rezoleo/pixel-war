@@ -241,8 +241,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;/*
-    transform: translate( 0, -120%);*/
+    position: absolute;
     z-index: 2; 
     background: rgb(77, 64, 70);
     border-radius: 10px;
@@ -323,4 +322,44 @@ header {
     flex-direction: row;
     align-items: center;
     margin: 15px;
+}
+
+.current_pixel_war_size p{
+    font-family: 'Roboto';
+    font-size: 20px;
+    color : white;
+    text-align: center;
+    margin: 10px 10px;
+}
+
+.form_admin{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+}
+
+.form_admin input {
+    margin: 10px auto; 
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+.form_admin button{
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    padding: 15px;
+    margin: 10px auto;
+    cursor: pointer;
+    color: #ffffff;
+    transition: .4s ease-in;
+    font-size: 1em;
+    background-color: rgb(75, 13, 40);
+}
+
+.form_admin button:hover{
+    background-color: rgb(132,21,69);
 }

@@ -6,6 +6,10 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
     header("Location: admin_login.html");
     exit();
 }
+
+$filename = 'private/taille.txt';
+$fileContent = file_get_contents($filename);
+list($width, $height) = explode(',', $fileContent);
 ?>
 
 <!DOCTYPE html>
@@ -49,8 +53,14 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
             </div>
         </div>
         <div>
-            <form class="form" action="augment_pixel_war_size.php" method="post">
-                <input type="number" name="new_line" placeholder="New line size">
+            <form class="form_admin" action="augment_pixel_war_size.php" method="post">
+                <div class="current_pixel_war_size">
+                    <p>Current size: <?php echo $width; ?> x <?php echo $height; ?></p>
+                </div>
+                <div class="numbers_input">
+                    <input type="number" name="new_line" placeholder="New line size">
+                    <input type="number" name="new_column" placeholder="New column size">
+                </div>
                 <button id="uploadModificationButton">Augment Pixel War Size</button>
             </form>
         </div>
