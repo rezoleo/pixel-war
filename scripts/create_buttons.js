@@ -14,17 +14,9 @@ function createColorButtons() {
     colors.forEach(function (color) {
         var colorButton = document.createElement('button');
         colorButton.style.backgroundColor = color;
-        let width = window.innerWidth;
-        window.addEventListener('resize', function() {
-            width = window.innerWidth;
-            buttonWidth = width / 40;
-            colorButton.style.width = buttonWidth.toString() + 'px';
-            colorButton.style.height = buttonWidth.toString() + 'px';
-        });
-        buttonWidth = width / 40;
-        colorButton.style.width = buttonWidth.toString() + 'px'; 
-        colorButton.style.height = buttonWidth.toString() + 'px'; 
-        colorButton.style.margin = `${parseInt(width / 500)}px`;
+        colorButton.style.width = 'clamp(15px, 5vw, 40px)';
+        colorButton.style.height = 'clamp(15px, 5vw, 40px)';
+        colorButton.style.margin = 'clamp(1px, 0.2vw, 5px)';
         colorButton.addEventListener('click', function () {
             // Handle color selection
             ctx.fillStyle = color;
