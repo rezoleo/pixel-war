@@ -96,6 +96,7 @@ let xEnd = -1;
 let yEnd = -1;
 
 canvas.addEventListener('mousedown', function (e) {
+    refreshCanva();
     // Calculate the pixel coordinates based on the click position
     let rect = canvas.getBoundingClientRect();
     
