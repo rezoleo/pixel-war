@@ -120,7 +120,6 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 15px;
 }
 
 .admin_writing_pixels button{
@@ -157,6 +156,7 @@ header {
     margin: 0;
     padding: 0;
 }
+
 .pixel_war_body {
     display: flex;
     justify-content: center;
@@ -362,4 +362,21 @@ header {
 
 .form_admin button:hover{
     background-color: rgb(132,21,69);
+}
+
+.error-size {
+    font-family : 'Roboto';
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px; /* Add margin-bottom to create space between error message and password input */
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+}
+
+.error-size p {
+    font-size: 30px;
+    color: red;
+    margin: 0;
+    padding: 0;
 }

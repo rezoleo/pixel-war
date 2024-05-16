@@ -1,13 +1,7 @@
 var root = document.querySelector(':root');
 var rootStyles = getComputedStyle(root);
 
-let width_pixel_war = parseInt(rootStyles.getPropertyValue('--width_pixel_war'));
-let height_pixel_war = parseInt(rootStyles.getPropertyValue('--height_pixel_war'));
-
-const upScale = 25;
 let baseScale = 0;
-
-updateBaseScale();
 
 var canvas = document.getElementById("pixel_war");
 const ctx = canvas.getContext("2d", { willReadFrequently: true });
@@ -23,6 +17,10 @@ fetch('readTaille.php')
         root.style.setProperty('--height_pixel_war', height + 'px');
         canvas.style.height = height + 'px';
         canvas.style.width = width + 'px';
+        var width_pixel_war = parseInt(rootStyles.getPropertyValue('--width_pixel_war'));
+        var height_pixel_war = parseInt(rootStyles.getPropertyValue('--height_pixel_war'));
+        updateBaseScale(width_pixel_war, height_pixel_war);
+        canvas.style.transform = 'scale(' + baseScale + ',' + baseScale + ')';
     })
     .catch(error => {
         console.error('Error reading file:', error);
@@ -30,17 +28,15 @@ fetch('readTaille.php')
 
 // Code for the button scaling the canvas
 var isScaled = false;
-canvas.style.transform = 'scale(' + baseScale + ',' + baseScale + ')';
 canvas.style.transformOrigin = 'top center';
 
 document.getElementById('scaleButton').addEventListener('click', function() {
 
-    updateBaseScale();
     // Toggle between scales
     if (isScaled) {
         canvas.style.transform = 'scale(' + baseScale+ ',' + baseScale + ')';
     } else {
-        canvas.style.transform = 'scale(' + upScale + ',' + upScale + ')';
+        canvas.style.transform = 'scale(' + 3*baseScale + ',' + 3*baseScale + ')';
     }
 
     // Update the scale state
@@ -83,7 +79,7 @@ document.addEventListener('mousemove', function (e) {
 
         // Update the canvas position
         if (isScaled){
-            canvas.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(' + upScale + ',' + upScale + ')';
+            canvas.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(' + 3*baseScale + ',' + 3*baseScale + ')';
         } 
         else {
             canvas.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(' + baseScale + ',' + baseScale + ')';
@@ -98,7 +94,7 @@ document.addEventListener('mouseup', function (e) {
     finishMouseY += e.clientY - startMouseY;
 });
 
-function updateBaseScale(){
+function updateBaseScale(width_pixel_war, height_pixel_war){
     let screenWidth = window.innerWidth;
     let screenHeight = window.innerHeight;
     

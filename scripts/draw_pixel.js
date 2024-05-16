@@ -77,8 +77,8 @@ canvas.addEventListener('click', function (e) {
     let rect = canvas.getBoundingClientRect();
 
     if (isScaled){
-        x = Math.floor((e.clientX - rect.left) / upScale);
-        y = Math.floor((e.clientY - rect.top) / upScale);
+        x = Math.floor((e.clientX - rect.left) / (3*baseScale));
+        y = Math.floor((e.clientY - rect.top) / (3*baseScale));
         x = Math.max(0,x);
         y = Math.max(0,y);
     }
@@ -104,8 +104,8 @@ canvas.addEventListener('touchstart', function (e) {
     let rect = canvas.getBoundingClientRect();
 
     if (isScaled){
-        x = Math.floor((e.touches[0].clientX - rect.left) / upScale);
-        y = Math.floor((e.touches[0].clientY - rect.top) / upScale);
+        x = Math.floor((e.touches[0].clientX - rect.left) / (3*baseScale));
+        y = Math.floor((e.touches[0].clientY - rect.top) / (3*baseScale));
         x = Math.max(0,x);
         y = Math.max(0,y);
     }
