@@ -52,14 +52,21 @@ list($width, $height) = explode(',', $fileContent);
                 <button id="uploadModificationButton">Upload Modification</button>
             </div>
         </div>
+        <div class="error-size">
+            <p><?php
+            if (isset($_GET['error'])) {
+                echo "Wrong size";
+            }
+            ?></p>
+        </div>
         <div>
             <form class="form_admin" action="augment_pixel_war_size.php" method="post">
                 <div class="current_pixel_war_size">
-                    <p>Current size: <?php echo $width; ?> x <?php echo $height; ?></p>
+                    <p>Current size: <?php echo $height; ?> x <?php echo $width; ?> : Put even numbers only</p>
                 </div>
                 <div class="numbers_input">
-                    <input type="number" name="new_line" placeholder="New line size">
-                    <input type="number" name="new_column" placeholder="New column size">
+                    <input type="number" name="new_line" placeholder="New line size" step="1" min="1">
+                    <input type="number" name="new_column" placeholder="New column size" step="1" min="1">
                 </div>
                 <button id="uploadModificationButton">Augment Pixel War Size</button>
             </form>
