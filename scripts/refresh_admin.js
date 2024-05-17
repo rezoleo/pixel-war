@@ -1,5 +1,6 @@
 var canvas = document.getElementById("pixel_war");
 const ctx = canvas.getContext("2d", { willReadFrequently: true });
+var uploadModificationButton = document.getElementById('uploadModificationButton');
 
 var root = document.querySelector(':root') ;
 var rootStyles = getComputedStyle(root) ;
@@ -19,7 +20,6 @@ fetch('readTaille.php')
         canvas.style.transform = 'scale(' + scale + ',' + scale + ')';
         canvas.style.transformOrigin = 'top center';
         refreshCanva();
-        //setInterval(refreshCanva, 3000);
         document.getElementById('refreshButton').addEventListener('click', function () {
             refreshCanva();
             xStart = -1;
@@ -115,7 +115,68 @@ canvas.addEventListener('mouseup', function (e) {
     yEnd = Math.floor((e.clientY - rect.top) / scale);
     xEnd = Math.max(0,xEnd);
     yEnd = Math.max(0,yEnd);
+    let xMin = Math.min(xStart, xEnd);
+    let yMin = Math.min(yStart, yEnd);
+    let xMax = Math.max(xStart, xEnd);
+    let yMax = Math.max(yStart, yEnd);
 
     ctx.fillStyle = "white";
-    ctx.fillRect(xStart, yStart, xEnd - xStart, yEnd - yStart);
+
+    /* The if statement is there because it is only possible to fill a pair of 2 pixels in white
+    Thus the rectangle drawn is not correct but it will correspond to what will be whitened */
+
+    // F    ormulas by trial and error it works with the backend but may not result in the best preview
+    if (xMin % 2 == 0 && xMax % 2 == 0){ // case where the last column does not end a byte
+        ctx.fillRect(xMin, yMin, xMax + 2 - xMin, yMax + 1 - yMin);
+    }
+    else if (xMin % 2 == 1 && xMax % 2 == 1){ // case where the first column does not start a byte
+        ctx.fillRect(xMin - 1, yMin, xMax + 2 - xMin, yMax + 1 - yMin);
+    }
+    else if (xMin % 2 == 1 && xMax % 2 == 0){ // both the previous cases
+        ctx.fillRect(xMin -1, yMin, xMax + 1 - xMin, yMax + 1 - yMin);
+    }
+    else{  // basic case everything's good
+        ctx.fillRect(xMin, yMin, xMax + 1 - xMin, yMax + 1 - yMin);
+    }
+    //ctx.fillRect(xMin, yMin, xMax + 1 - xMin, yMax + 1 - yMin);
+    console.log("xMin: " + xMin + " xMax: " + xMax + " yMin: " + yMin + " yMax: " + yMax);
+});
+
+uploadModificationButton.addEventListener('click', function () {
+    if (xStart != -1 && yStart != -1 && xEnd != -1 && yEnd != -1) {
+        let xMin = Math.min(xStart, xEnd);
+        let yMin = Math.min(yStart, yEnd);
+        let xMax = Math.max(xStart, xEnd);
+        let yMax = Math.max(yStart, yEnd);
+
+        let data = {
+            xMin: xMin,
+            yMin: yMin,
+            xMax: xMax,
+            yMax: yMax
+        };        
+
+        fetch('admin_pixel_whitening.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data == "failed") {
+                alert("Failed to update the pixel");
+            }
+            else {
+                refreshCanva();
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête :', error);
+        });
+    }
+    else {
+        alert("Please select a zone to modify");
+    }
 });

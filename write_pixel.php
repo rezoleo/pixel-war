@@ -2,8 +2,7 @@
 
 include('./private/config.php');
 
-// Function to check and update IP timestamp in the CSV file
-//return true if the IP is allowed to write a pixel, false otherwise and update the timestamp in the CSV file
+// Function to verify if the IP is allowed to write a pixel, data stored in an SQLite database
 function authenticateIP($ip, $delay) {
 
     $dbPath = 'private/ip_timestamp.sqlite';
