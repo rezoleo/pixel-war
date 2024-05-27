@@ -29,6 +29,9 @@ document.getElementById('uploadColorButton').addEventListener('click', function 
             else if (data == "Too many requests") {
                 alert("Trop de requêtes, veuillez patienter");
             }
+            else if (data == "Pixel war is not active") {
+                alert("La pixel war n'est pas active");
+            }
             else {
                 alert("Erreur lors de l'écriture du pixel");
             }

@@ -71,7 +71,11 @@ list($width, $height) = explode(',', $fileContent);
                 <button id="uploadModificationButton">Augment Pixel War Size</button>
             </form>
         </div>
+        <form class="changing-pixel-war-state" action="admin_pixel_war_deactivate.php">
+            <button id="changePixelWarStateButton">Deactivate Pixel War</button>
+        </form>
     </div>
     <script src="scripts/refresh_admin.js"></script>
+    <script src="scripts/disable_pixel_war_admin.js"></script>
 </body>
 </html>

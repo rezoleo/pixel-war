@@ -125,7 +125,7 @@ canvas.addEventListener('mouseup', function (e) {
     /* The if statement is there because it is only possible to fill a pair of 2 pixels in white
     Thus the rectangle drawn is not correct but it will correspond to what will be whitened */
 
-    // F    ormulas by trial and error it works with the backend but may not result in the best preview
+    // Formulas by trial and error it works with the backend but may not result in the best preview
     if (xMin % 2 == 0 && xMax % 2 == 0){ // case where the last column does not end a byte
         ctx.fillRect(xMin, yMin, xMax + 2 - xMin, yMax + 1 - yMin);
     }

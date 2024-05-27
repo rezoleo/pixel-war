@@ -64,6 +64,19 @@ function getIp(){
     return $ip;
 }
 
+$file = 'private/is_pixel_war_active.txt';
+
+// Read the file contents
+$contents = file_get_contents($file);
+
+// Check if the pixel war is active
+if ($contents == 'false') {
+    // Pixel war is not active
+    echo "Pixel war is not active";
+    header("HTTP/1.1 403 Forbidden");
+    exit();
+}
+
 $dimensions = file_get_contents('private/taille.txt');
 list($width, $height) = explode(',', $dimensions);
 
