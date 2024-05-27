@@ -52,13 +52,11 @@ list($width, $height) = explode(',', $fileContent);
                 <button id="uploadModificationButton">Upload Modification</button>
             </div>
         </div>
-        <div class="error-size">
-            <p><?php
-            if (isset($_GET['error'])) {
-                echo "Wrong size";
-            }
-            ?></p>
-        </div>
+        <?php if (isset($_GET['error'])): ?>
+            <div class="error-size">
+                <p>Wrong size</p>
+            </div>
+        <?php endif; ?>
         <div>
             <form class="form_admin" action="augment_pixel_war_size.php" method="post">
                 <div class="current_pixel_war_size">
@@ -73,6 +71,18 @@ list($width, $height) = explode(',', $fileContent);
         </div>
         <form class="changing-pixel-war-state" action="admin_pixel_war_deactivate.php">
             <button id="changePixelWarStateButton">Deactivate Pixel War</button>
+        </form>
+        <form class="reinitialize-canva" action="admin_reinitialize_canva.php" method="post">
+            <div class="numbers_input">
+                <?php if (isset($_GET['error_reinitialize']) && $_GET['error_reinitialize'] === 'true'): ?>
+                    <div class="error-reinitialize">
+                        <p>Problem when reinitializing Pixel War</p>
+                    </div>
+                <?php endif; ?>
+                <input type="number" name="line" placeholder="line size" step="1" min="1">
+                <input type="number" name="column" placeholder="colum size" step="1" min="1">
+            </div>
+            <button id="reinitializeCanva">REINITIALIZE CANVA</button>
         </form>
     </div>
     <script src="scripts/refresh_admin.js"></script>

@@ -335,7 +335,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: top;
+    justify-content: top;    
 }
 
 .form_admin input {
@@ -410,4 +410,43 @@ button.disabled-button {
 
 #changePixelWarStateButton:hover {
     background-color: rgb(132,21,69);
+}
+
+.error-reinitialize p {
+    font-size: 30px;
+    color: red;
+    margin: 0;
+    padding: 0;
+}
+
+.reinitialize-canva{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+}
+
+.reinitialize-canva input {
+    margin: 10px auto; 
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+.reinitialize-canva button{
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    padding: 15px;
+    margin: 10px auto;
+    cursor: pointer;
+    color: #ffffff;
+    transition: .4s ease-in;
+    font-size: 1em;
+    background-color: red;
+}
+
+.reinitialize-canva button:hover{
+    background-color: rgb(184, 0, 0);
 }
