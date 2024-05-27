@@ -78,6 +78,16 @@ if (isset($_POST['line']) && isset($_POST['column'])) {
     // Close the file
     fclose($file);
 
+    // *** part about deleting all the info from the DB *** //
+
+    $dbPath = 'private/ip_timestamp.sqlite';
+
+    // Connect to the SQLite database
+    $db = new SQLite3($dbPath);
+
+    // Delete all data from the ip_timestamp table
+    $db->exec("DELETE FROM ip_timestamp");
+
     header("Location: admin_control.php");
     exit();
 } else {

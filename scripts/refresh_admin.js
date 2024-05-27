@@ -138,8 +138,6 @@ canvas.addEventListener('mouseup', function (e) {
     else{  // basic case everything's good
         ctx.fillRect(xMin, yMin, xMax + 1 - xMin, yMax + 1 - yMin);
     }
-    //ctx.fillRect(xMin, yMin, xMax + 1 - xMin, yMax + 1 - yMin);
-    console.log("xMin: " + xMin + " xMax: " + xMax + " yMin: " + yMin + " yMax: " + yMax);
 });
 
 uploadModificationButton.addEventListener('click', function () {
