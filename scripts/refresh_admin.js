@@ -20,6 +20,7 @@ fetch('readTaille.php')
         canvas.style.transform = 'scale(' + scale + ',' + scale + ')';
         canvas.style.transformOrigin = 'top center';
         refreshCanva();
+        scale = 300 / width;
         document.getElementById('refreshButton').addEventListener('click', function () {
             refreshCanva();
             xStart = -1;
