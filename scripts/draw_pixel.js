@@ -23,7 +23,7 @@ document.getElementById('uploadColorButton').addEventListener('click', function 
                 fetch('get_timer.php')
                 .then(response => response.text())
                 .then(data => {
-                    timer(timerElement,data)
+                    timer(timerElement, data);
                 });
             }
             else if (data == "Too many requests") {
@@ -151,7 +151,7 @@ function timer(timerElement, seconds) {
         seconds--;
         timerElement.innerHTML = seconds;
         timerElement.style.color = "red";
-        if (seconds <= 0) {
+        if (seconds < 0) {
             clearInterval(timer);
             timerElement.innerHTML = "Ready";
             timerElement.style.color = "green";
